@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .control-group {
+            flex: 1;
+        }
+
+        .slider-container {
+            margin: 10px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .visualization {
+            display: flex;
+            gap: 20px;
+        }
+
+        .network-container {
+            flex: 2;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .stats-container {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .node {
+            fill: #69b3a2;
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .stat-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2196F3;
+        }
+    </style>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script defer type="module" src="index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Opinion Formation Network Simulation</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <h3>Network Parameters</h3>
+                <div class="slider-container">
+                    <label>Centralization (α): <span id="alpha-value">0.2</span></label>
+                    <input type="range" id="alpha" min="0" max="1" step="0.1" value="0.2">
+                </div>
+                <div class="slider-container">
+                    <label>Density (β): <span id="beta-value">0.1</span></label>
+                    <input type="range" id="beta" min="0" max="1" step="0.1" value="0.1">
+                </div>
+                <div class="slider-container">
+                    <label>Number of Nodes: <span id="nodes-value">50</span></label>
+                    <input type="range" id="nodes" min="10" max="100" step="10" value="50">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>Information Parameters</h3>
+                <div class="slider-container">
+                    <label>Spread Rate: <span id="spread-value">0.3</span></label>
+                    <input type="range" id="spread-rate" min="0" max="1" step="0.1" value="0.3">
+                </div>
+                <div class="slider-container">
+                    <label>Fact-Check Delay: <span id="delay-value">5</span></label>
+                    <input type="range" id="fact-check-delay" min="1" max="10" step="1" value="5">
+                </div>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="network-container">
+                <svg id="network"></svg>
+            </div>
+            <div class="stats-container">
+                <h3>Network Statistics</h3>
+                <p>Average Degree: <span id="avg-degree" class="stat-value">0</span></p>
+                <p>Clustering Coefficient: <span id="clustering" class="stat-value">0</span></p>
+                <p>Centralization Index: <span id="centralization" class="stat-value">0</span></p>
+                <p>Information Spread: <span id="spread" class="stat-value">0%</span></p>
+                <p>Fact-Checked Nodes: <span id="fact-checked" class="stat-value">0%</span></p>
+                <button id="reset">Reset Simulation</button>
+                <button id="start-spread">Start Information Spread</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
